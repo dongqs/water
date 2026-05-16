@@ -4,7 +4,10 @@ import { existsSync, readFileSync } from 'fs';
 import type { Plugin } from 'vite';
 
 function serveDataDir(): Plugin {
-  const dataDir = resolve(__dirname, 'data/lake_boundary_dataset');
+  const dataDirs = [
+    resolve(__dirname, 'data/lake_boundary_dataset'),
+    resolve(__dirname, 'data/lake_benchmark/export'),
+  ];
   return {
     name: 'serve-data-dir',
     configureServer(server) {
@@ -12,16 +15,18 @@ function serveDataDir(): Plugin {
         const url = req.url || '';
         if (!url.startsWith('/export/')) { next(); return; }
         const relPath = url.replace('/export/', '').split('?')[0];
-        const filePath = join(dataDir, relPath);
-        if (existsSync(filePath)) {
-          const ext = (relPath.split('.').pop() || '').toLowerCase();
-          const mime = ext === 'json' ? 'application/json' :
-                       ext === 'png' ? 'image/png' : 'text/plain';
-          res.setHeader('Content-Type', mime);
-          res.setHeader('Access-Control-Allow-Origin', '*');
-          res.statusCode = 200;
-          res.end(ext === 'png' ? readFileSync(filePath) : readFileSync(filePath, 'utf-8'));
-          return;
+        for (const dir of dataDirs) {
+          const filePath = join(dir, relPath);
+          if (existsSync(filePath)) {
+            const ext = (relPath.split('.').pop() || '').toLowerCase();
+            const mime = ext === 'json' ? 'application/json' :
+                         ext === 'png' ? 'image/png' : 'text/plain';
+            res.setHeader('Content-Type', mime);
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.statusCode = 200;
+            res.end(ext === 'png' ? readFileSync(filePath) : readFileSync(filePath, 'utf-8'));
+            return;
+          }
         }
         res.statusCode = 404; res.end('Not Found');
       });
