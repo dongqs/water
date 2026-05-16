@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from 'vite';
 import { resolve, join } from 'path';
 import { existsSync, readFileSync } from 'fs';
 import type { Plugin } from 'vite';
@@ -16,12 +16,11 @@ function serveDataDir(): Plugin {
         if (existsSync(filePath)) {
           const ext = (relPath.split('.').pop() || '').toLowerCase();
           const mime = ext === 'json' ? 'application/json' :
-                       ext === 'png' ? 'image/png' :
-                       ext === 'bin' ? 'application/octet-stream' : 'text/plain';
+                       ext === 'png' ? 'image/png' : 'text/plain';
           res.setHeader('Content-Type', mime);
           res.setHeader('Access-Control-Allow-Origin', '*');
           res.statusCode = 200;
-          res.end(ext === 'png' || ext === 'bin' ? readFileSync(filePath) : readFileSync(filePath, 'utf-8'));
+          res.end(ext === 'png' ? readFileSync(filePath) : readFileSync(filePath, 'utf-8'));
           return;
         }
         res.statusCode = 404; res.end('Not Found');
