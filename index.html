@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Water Boundary Research</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #1a1a2e; color: #e0e0e0;
+    font-family: 'Menlo', 'Consolas', monospace;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh;
+  }
+  .container { text-align: center; max-width: 600px; padding: 40px; }
+  h1 { font-size: 24px; margin-bottom: 8px; color: #3498db; }
+  p { font-size: 13px; opacity: 0.6; margin-bottom: 32px; line-height: 1.8; }
+  .cards { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .card {
+    background: #16213e; border: 1px solid #0f3460; border-radius: 8px;
+    padding: 24px 32px; text-decoration: none; color: #e0e0e0;
+    transition: border-color 0.2s; min-width: 200px;
+  }
+  .card:hover { border-color: #3498db; }
+  .card h2 { font-size: 16px; margin-bottom: 6px; }
+  .card p { font-size: 11px; opacity: 0.5; margin: 0; }
+  .stats { margin-top: 32px; font-size: 11px; opacity: 0.4; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Water Boundary Research</h1>
+  <p>Lake water-land boundary detection algorithm evaluation<br>
+  using OSM polygons as ground truth and JAXA AW3D30 elevation data.</p>
+  <div class="cards">
+    <a href="boundary.html" class="card">
+      <h2>Boundary Viewer</h2>
+      <p>Interactive OSM overlay +<br>elevation sampling + classification</p>
+    </a>
+    <a href="benchmark.html" class="card">
+      <h2>Benchmark Dashboard</h2>
+      <p>Algorithm sweep results +<br>dimension comparison charts</p>
+    </a>
+  </div>
+  <div class="stats">8 water bodies · 760 samples · best flatness 1.1-1.5 · accuracy 68.3%</div>
+</div>
+</body>
+</html>

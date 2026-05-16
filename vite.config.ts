@@ -38,6 +38,7 @@ export default defineConfig({
     target: 'es2020',
     rollupOptions: {
       input: {
+        index: resolve(__dirname, "index.html"),
         boundary: resolve(__dirname, 'boundary.html'),
         benchmark: resolve(__dirname, 'benchmark.html'),
       },
