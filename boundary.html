@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boundary Dataset Viewer</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #1a1a2e; color: #e0e0e0;
+    font-family: 'Menlo', 'Consolas', monospace;
+    font-size: 12px; overflow: hidden;
+  }
+  #topbar {
+    display: flex; gap: 12px; align-items: center;
+    padding: 6px 12px; background: #0f3460;
+    border-bottom: 1px solid #1a5276;
+  }
+  #topbar select, #topbar button {
+    background: #16213e; color: #e0e0e0;
+    border: 1px solid #1a5276; padding: 4px 10px;
+    border-radius: 3px; font-family: inherit; font-size: 11px; cursor: pointer;
+  }
+  #topbar button:hover { background: #1a5276; }
+  #topbar label { font-size: 10px; opacity: 0.7; }
+
+  #viewport {
+    position: relative; overflow: hidden;
+    width: 100vw; height: calc(100vh - 36px);
+  }
+  canvas { display: block; }
+
+  #tooltip {
+    position: absolute; pointer-events: none;
+    background: rgba(15, 51, 96, 0.95); border: 1px solid #3498db;
+    padding: 8px 12px; border-radius: 4px; font-size: 10px;
+    display: none; white-space: pre; z-index: 10;
+    max-width: 300px;
+  }
+  #info {
+    position: absolute; bottom: 8px; left: 8px;
+    font-size: 10px; opacity: 0.6; pointer-events: none;
+  }
+</style>
+</head>
+<body>
+<div id="topbar">
+  <label>Water:</label>
+  <select id="sel-water"></select>
+  <button id="btn-zoom-in">+</button>
+  <button id="btn-zoom-out">−</button>
+  <label>F:</label>
+  <select id="sel-flatness" style="background:#16213e;color:#e0e0e0;border:1px solid #1a5276;padding:4px 6px;border-radius:3px;font-family:inherit;font-size:11px;"></select>
+  <button id="btn-reset">Reset</button>
+  <span id="info-patch" style="opacity:0.6; font-size:10px;"></span>
+</div>
+<div id="viewport">
+  <canvas id="canvas"></canvas>
+  <div id="tooltip"></div>
+  <div id="info">Drag to pan | Scroll to zoom | Hover for details</div>
+</div>
+
+<script type="module">
+import { loadPatches } from '/src/benchmark/boundaryViewer.ts';
+loadPatches();
+</script>
+</body>
+</html>
